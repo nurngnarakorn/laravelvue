@@ -16,7 +16,7 @@ services:
       - app-network
 
   webserver:
-    image: nginx:alpine
+    image: nginx:mainline-alpine
     container_name: nginx-webserver
     restart: unless-stopped
     ports:
@@ -28,7 +28,7 @@ services:
       - app-network
 
   mysql:
-    image: mysql:5.7
+    image: arm64v8/mysql:8.0
     container_name: mysql
     restart: unless-stopped
     environment:

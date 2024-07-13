@@ -1,0 +1,45 @@
+<template>
+  <div class="quote-form">
+    <h1>Request a Quote</h1>
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" v-model="email" required />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <div v-if="message">{{ message }}</div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      email: '',
+      message: ''
+    };
+  },
+  methods: {
+    async submitForm() {
+      try {
+        const response = await axios.post('http://localhost:8000/api/quote', {
+          email: this.email,
+        });
+        this.message = 'Quote request submitted successfully!';
+      } catch (error) {
+        this.message = 'An error occurred: ' + (error.response?.data?.message || error.message);
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+.quote-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+</style>
